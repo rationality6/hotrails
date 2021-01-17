@@ -2,27 +2,13 @@
 
 <h1>Tweets</h1>
 
-<table>
+<%= turbo_stream_from "tweets" %>
 
-  <thead>
-  <tr>
-    <th>Body</th>
-    <th colspan="3"></th>
-  </tr>
-  </thead>
-
+<%= turbo_frame_tag 'tweet' do %>
   <%= render 'form', tweet: @tweet %>
-
-  <tbody>
-
-  <%= turbo_stream_from "tweets" %>
-  <%= turbo_frame_tag 'tweets' do %>
-    <%= render 'tweets' %>
-  <% end %>
-  </tbody>
-
-</table>
-
-<%= turbo_frame_tag 'new_tweet' do %>
-  <%= render 'new' %>
 <% end %>
+
+<%= turbo_frame_tag "tweets" do %>
+  <%= render @tweets %>
+<% end %>
+
