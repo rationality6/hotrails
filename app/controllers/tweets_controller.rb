@@ -5,7 +5,7 @@ class TweetsController < ApplicationController
   # GET /tweets.json
   def index
     @tweet = Tweet.new
-    @tweets = Tweet.all
+    @tweets = Tweet.all.order(created_at: :desc)
   end
 
   # GET /tweets/1
@@ -29,7 +29,9 @@ class TweetsController < ApplicationController
     respond_to do |format|
       if @tweet.save
         format.html { redirect_to tweets_url, notice: 'Tweet was successfully created.' }
+
       else
+        format.turbo_stream { render turbo_stream: turbo_stream.replace(@tweet, partial: "tweets/form", locals: { tweet: @tweet }) }
         format.html {
           render :index
         }
@@ -42,11 +44,9 @@ class TweetsController < ApplicationController
   def update
     respond_to do |format|
       if @tweet.update(tweet_params)
-        format.html { redirect_to @tweet, notice: 'Tweet was successfully updated.' }
-        format.json { render :show, status: :ok, location: @tweet }
+        format.html { redirect_to tweets_path, notice: 'Tweet was successfully updated.' }
       else
         format.html { render :edit }
-        format.json { render json: @tweet.errors, status: :unprocessable_entity }
       end
     end
   end
@@ -62,13 +62,14 @@ class TweetsController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_tweet
-      @tweet = Tweet.find(params[:id])
-    end
 
-    # Only allow a list of trusted parameters through.
-    def tweet_params
-      params.require(:tweet).permit(:body)
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_tweet
+    @tweet = Tweet.find(params[:id])
+  end
+
+  # Only allow a list of trusted parameters through.
+  def tweet_params
+    params.require(:tweet).permit(:body)
+  end
 end
