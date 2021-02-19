@@ -1,7 +1,7 @@
 <style>
-  .button_to {
-    display: inline !important;
-  }
+    .button_to {
+        display: inline !important;
+    }
 </style>
 
 <%= turbo_frame_tag dom_id(tweet) do %>
@@ -11,10 +11,26 @@
     <span>
       <%= button_to "쪼아 #{tweet.likes_count}", tweet_like_path(tweet), method: :post, id: 'form' %>
     </span>
-    <span><button><%= tweet.retweets_count %></button></span>
 
-      <%= link_to 'Edit', edit_tweet_path(tweet) %>
+    <span>
+      <button>
+        <%= tweet.retweets_count %>
+      </button>
+    </span>
 
-    <td><%= link_to 'Destroy', tweet, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+    <div>
+      <% if tweet.images.attached? %>
+        <div>foo</div>
+        <% tweet.images.each do |image| %>
+          <%= image_tag image %>
+        <% end %>
+      <% end %>
+    </div>
+
+    <%= link_to 'Show', tweet_path(tweet) %>
+
+    <%= link_to 'Edit', edit_tweet_path(tweet) %>
+
+    <%= link_to 'Destroy', tweet, method: :delete, data: { confirm: 'Are you sure?' } %>
   </div>
 <% end %>

@@ -4,10 +4,16 @@
 // that code so it'll be compiled.
 
 import Rails from "@rails/ujs"
-import Turbolinks from "turbolinks"
+Rails.start()
+
 import * as ActiveStorage from "@rails/activestorage"
+ActiveStorage.start()
+
 import "channels"
 
-Rails.start()
-Turbolinks.start()
-ActiveStorage.start()
+
+
+
+
+require("trix")
+require("@rails/actiontext")
