@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_02_19_070617) do
+ActiveRecord::Schema.define(version: 2021_02_20_141035) do
 
   create_table "action_text_rich_texts", force: :cascade do |t|
     t.string "name", null: false
@@ -50,8 +50,8 @@ ActiveRecord::Schema.define(version: 2021_02_19_070617) do
     t.index ["blob_id", "variation_digest"], name: "index_active_storage_variant_records_uniqueness", unique: true
   end
 
-  create_table "tweet02s", force: :cascade do |t|
-    t.string "body"
+  create_table "rooms", force: :cascade do |t|
+    t.string "name"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
@@ -60,8 +60,10 @@ ActiveRecord::Schema.define(version: 2021_02_19_070617) do
     t.string "body"
     t.integer "likes_count", default: 0
     t.integer "retweets_count", default: 0
+    t.integer "room_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.index ["room_id"], name: "index_tweets_on_room_id"
   end
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"

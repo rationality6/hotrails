@@ -3,7 +3,6 @@ class Tweet < ApplicationRecord
   after_update_commit { broadcast_replace_to :tweets }
   after_destroy_commit { broadcast_remove_to :tweets }
 
-  validates :body, presence: true
-
   has_many_attached :images
+  has_rich_text :content
 end
