@@ -57,7 +57,6 @@ ActiveRecord::Schema.define(version: 2021_02_20_141035) do
   end
 
   create_table "tweets", force: :cascade do |t|
-    t.string "body"
     t.integer "likes_count", default: 0
     t.integer "retweets_count", default: 0
     t.integer "room_id"

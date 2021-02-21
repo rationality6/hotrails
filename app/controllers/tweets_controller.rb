@@ -21,22 +21,22 @@ class TweetsController < ApplicationController
   def edit
   end
 
-  # POST /tweets
-  # POST /tweets.json
   def create
-    @tweet = Tweet.new(tweet_params)
+    room_id = { room_id: params[:room_id] }
+    @tweet = Tweet.new(tweet_params).merge(room_id)
 
-    respond_to do |format|
-      if @tweet.save
-        format.html { redirect_to tweets_url, notice: 'Tweet was successfully created.' }
+    @tweet.save
 
-      else
-        format.turbo_stream { render turbo_stream: turbo_stream.replace(@tweet, partial: "tweets/form", locals: { tweet: @tweet }) }
-        format.html {
-          render :index
-        }
-      end
-    end
+    # respond_to do |format|
+    #   if @tweet.save
+    #     format.html { redirect_to tweets_url, notice: 'Tweet was successfully created.' }
+    #   else
+    #     format.turbo_stream { render turbo_stream: turbo_stream.replace(@tweet, partial: "tweets/form", locals: { tweet: @tweet }) }
+    #     format.html {
+    #       render :index
+    #     }
+    #   end
+    # end
   end
 
   # PATCH/PUT /tweets/1

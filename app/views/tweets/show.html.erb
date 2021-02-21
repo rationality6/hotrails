@@ -2,8 +2,8 @@
 
 <%= turbo_frame_tag dom_id(@tweet) do %>
   <p>
-    <strong>Body:</strong>
-    <%= @tweet.body %>
+    <strong>Content:</strong>
+    <%= @tweet.content %>
   </p>
 
   <%= link_to 'Back', tweets_path, "data-turbo-frame": "_top" %>

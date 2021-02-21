@@ -1,13 +1,28 @@
 <p id="notice"><%= notice %></p>
 
 <p>
-  <strong>Name:</strong>
+  <strong>채팅방 Name:</strong>
   <%= @room.name %>
 </p>
 
-<%= @room.tweets.each do |item| %>
-  <%= item.body %>
-<% end %>
-
 <%= link_to 'Edit', edit_room_path(@room) %> |
 <%= link_to 'Back', rooms_path %>
+
+<br>
+<br>
+
+<%= form_with(model: Tweet.new, methods: :post, url: room_tweets_path(@room.id), remote: true) do |f| %>
+  <%= f.rich_text_area :content %>
+  <br>
+  <%= f.submit %>
+<% end %>
+
+<br>
+<hr>
+<br>
+
+<%= turbo_stream_from "room-#{@room.id}" %>
+<%= turbo_frame_tag "room-#{@room.id}" do %>
+  <%= render @tweets %>
+<% end %>
+

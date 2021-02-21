@@ -18,3 +18,7 @@ turbo-frame {
     display: block;
     border: 1px solid blue;
 }
+
+.button_to {
+    display: inline !important;
+}
