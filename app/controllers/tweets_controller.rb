@@ -1,15 +1,6 @@
 class TweetsController < ApplicationController
   before_action :set_tweet, only: [:show, :edit, :update, :destroy]
 
-  # GET /tweets
-  # GET /tweets.json
-  def index
-    @tweet = Tweet.new
-    @tweets = Tweet.all.order(created_at: :desc)
-  end
-
-  # GET /tweets/1
-  # GET /tweets/1.json
   def show
   end
 
@@ -23,8 +14,8 @@ class TweetsController < ApplicationController
 
   def create
     room_id = { room_id: params[:room_id] }
-    @tweet = Tweet.new(tweet_params).merge(room_id)
-
+    merged_params = tweet_params.merge(room_id)
+    @tweet = Tweet.new(merged_params)
     @tweet.save
 
     # respond_to do |format|
